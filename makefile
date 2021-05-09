@@ -32,22 +32,9 @@
 # 
 #      865-974-4397
 # Fax: 865-974-4404
-
-
-CFLAGS = -O
-
-all: libfdr.a
-
-OBJS = dllist.o fields.o jval.o jrb.o
-
-libfdr.a: $(OBJS)
-	ar ru libfdr.a $(OBJS)
-	ranlib libfdr.a 
-
+all: exe 
+exe:
+	gcc -c proje.c fields.c jval.c jrb.c
+	gcc -o exe proje.o fields.o jval.o jrb.o
 clean:
-	rm -f core *.o libfdr.a
-
-.SUFFIXES: .c .o
-.c.o:
-	$(CC) $(CFLAGS) -c $*.c
-
+	rm *.o exe
