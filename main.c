@@ -25,18 +25,18 @@ JRB fill_jrb(){
     char *arr,*arr1;
     int i,satir=0,j=0;
     b = make_jrb();
-    is = new_inputstruct("11/.kilit");
+    is = new_inputstruct(".kilit");
     if (is == NULL) {
-        perror("11/.kilit");
+        perror("/.kilit");
         exit(1);
     }
     
     while(get_line(is) >= 0){
     	satir++;
     }
-     is = new_inputstruct("11/.kilit");
+     is = new_inputstruct(".kilit");
     if (is == NULL) {
-        perror("11/.kilit");
+        perror("/.kilit");
         exit(1);
     }
 
@@ -73,7 +73,8 @@ JRB fill_jrb(){
     return b;
 }
 
-void descripted(const char *giris_metin , const char *cikis_metin){
+void encripted(const char *giris_metin , const char *cikis_metin){
+	//printf("geldik lo");encripted
     IS is;
 	int i,j,size=0;
 	FILE *fp = fopen(cikis_metin,"w+");
@@ -104,12 +105,16 @@ void descripted(const char *giris_metin , const char *cikis_metin){
 		bn = jrb_find_str(b, input_metin[i]) ;
 		if (bn != NULL )
 		{
+			//printf("%s ",jval_s(bn->val));
 			fprintf(fp,"%s ", jval_s(bn->val));
+		}
+		else{
+			fprintf(fp,"%s ", input_metin[i]);
 		}
 	}
 }
 
-void encripted(const char *giris_metin , const char *cikis_metin){
+void descripted(const char *giris_metin , const char *cikis_metin){
 	IS is;
 	int i,j,size=0;
 	FILE *fp = fopen(cikis_metin,"w+");
@@ -135,40 +140,50 @@ void encripted(const char *giris_metin , const char *cikis_metin){
 			}
 		}
 	}
-	
+	int flag=0;
+
 	for (i = 0; i < size; ++i)
 	{
+		flag=0;
 		for(ptr = jrb_first(b); ptr != jrb_nil(b); ptr = jrb_next(ptr)){
 			if(strcmp(input_metin[i],jval_s(ptr->val)) == 0){
 				fprintf(fp,"%s ", jval_s(ptr->key));
+				flag=1;
 			}
+
 		}
+		if (flag!=1)
+		{
+			fprintf(fp,"%s ", input_metin[i]);
+		}
+		
+
 	}
 }
 int main(int argc, char const *argv[]){
-    if (argc != 5)
+    if (argc != 4)
     {
     	printf("Eksik arguman..!\n");
-    	printf("$>./exe kripto -d giriş_metin cikis_metin\n");
+    	printf("$>./kripto -d giriş_metin cikis_metin\n");
     }
     else{
-    	if (strcmp(argv[1],"kripto")!=0)
+    	if (strcmp(argv[0],"./kripto")!=0)
     	{
     		printf("Hatali arguman..!\n");
-    		printf("$>./exe kripto -d giriş_metin cikis_metin\n");	
+    		printf("$>./kripto -d giriş_metin cikis_metin\n");	
     	}
     	else{
-    		if (strcmp(argv[2],"-d")==0)
+    		if (strcmp(argv[1],"-d")==0)
     		{
-    			descripted(argv[3],argv[4]);
+    			descripted(argv[2],argv[3]);
     		}
-    		else if(strcmp(argv[2],"-e")==0)
+    		else if(strcmp(argv[1],"-e")==0)
     		{
-    			encripted(argv[3],argv[4]);
+    			encripted(argv[2],argv[3]);
     		}
     		else{
     			printf("Hatali arguman..!\n");
-    			printf("$>./exe kripto -d giriş_metin cikis_metin\n");
+    			printf("$>./kripto -d giriş_metin cikis_metin\n");
     		}
     	}
     }
