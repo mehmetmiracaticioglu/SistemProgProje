@@ -27,7 +27,7 @@ JRB fill_jrb(){
     b = make_jrb();
     is = new_inputstruct(".kilit");
     if (is == NULL) {
-        perror("11/.kilit");
+        perror("/.kilit");
         exit(1);
     }
     
@@ -36,7 +36,7 @@ JRB fill_jrb(){
     }
      is = new_inputstruct(".kilit");
     if (is == NULL) {
-        perror("11/.kilit");
+        perror("/.kilit");
         exit(1);
     }
 
