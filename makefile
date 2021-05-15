@@ -7,3 +7,5 @@ run:
 	./kripto -e decripted.txt encripted.txt
 clean:
 	rm *.o kripto
+cleanall:
+	rm *.o *.txt giris_metin kripto .kilit
